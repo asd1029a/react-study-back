@@ -1,7 +1,11 @@
 package com.example.reactstudyback.controller;
 
+import com.example.reactstudyback.dto.DisabledParkingDto;
 import com.example.reactstudyback.dto.TestDto;
+import com.example.reactstudyback.service.DisabledParkingService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,26 +20,15 @@ import java.util.List;
  * @since 2023.08.17
  */
 @RestController
+@CrossOrigin(originPatterns = "http://localhost:3001")
 @Slf4j
+@RequiredArgsConstructor
 public class TestRestController {
 
-    @GetMapping("/test")
-    public List<TestDto> test() {
-        List<TestDto> list = new ArrayList<>();
-        TestDto testDto = new TestDto();
-        testDto.setEmail("email1@asd.com");
-        testDto.setName("김정민");
-        TestDto testDto2 = new TestDto();
-        testDto2.setEmail("email1@asd.com");
-        testDto2.setName("김정민");
-        TestDto testDto3 = new TestDto();
-        testDto3.setEmail("email1@asd.com");
-        testDto3.setName("김정민");
-        list.add(testDto);
-        list.add(testDto2);
-        list.add(testDto3);
+    private final DisabledParkingService disabledParkingService;
 
-        log.info("보낸 데이터 = {}",list);
-        return list;
+    @GetMapping("/disabled")
+    public List<DisabledParkingDto> test() throws Exception {
+        return disabledParkingService.getDisabledParkingData();
     }
 }
